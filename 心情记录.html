@@ -1,0 +1,153 @@
+.html<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心情日记</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .input-area {
+            margin: 20px 0;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #357ae8;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            min-height: 20px;
+            font-weight: bold;
+        }
+        .score-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .score-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>😊 心情日记</h1>
+        <p id="greeting">嗨，今天过的怎么样？</p>
+        
+        <div class="score-buttons">
+            <button class="score-btn" onclick="setScore(1)">1</button>
+            <button class="score-btn" onclick="setScore(2)">2</button>
+            <button class="score-btn" onclick="setScore(3)">3</button>
+            <button class="score-btn" onclick="setScore(4)">4</button>
+            <button class="score-btn" onclick="setScore(5)">5</button>
+        </div>
+        
+        <div class="input-area">
+            <p>或者直接输入分数 (1-5):</p>
+            <input type="number" id="scoreInput" min="1" max="5" placeholder="输入1-5">
+            <button onclick="submitScore()">提交</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // 模拟Python中的time.sleep(1)
+        setTimeout(function() {
+            document.getElementById('greeting').innerHTML += '<br>给心情打个分吧！';
+        }, 1000);
+        
+        // 设置分数（通过按钮）
+        function setScore(score) {
+            document.getElementById('scoreInput').value = score;
+            showResult(score);
+        }
+        
+        // 提交分数（通过输入框）
+        function submitScore() {
+            const score = parseInt(document.getElementById('scoreInput').value);
+            if (score >= 1 && score <= 5) {
+                showResult(score);
+            } else {
+                document.getElementById('result').innerHTML = '请输入1-5之间的数字！';
+            }
+        }
+        
+        // 显示结果（根据分数显示不同文本）
+        function showResult(score) {
+            let resultText = '';
+            
+            // 根据不同的分数显示文本
+            if (score === 1) {
+                resultText = '废物';
+            } else if (score === 2) {
+                resultText = '垃圾';
+            } else if (score === 3) {
+                resultText = '不赖';
+            } else if (score === 4) {
+                resultText = '可以';
+            } else if (score === 5) {
+                resultText = '吊';
+            }
+            
+            document.getElementById('result').innerHTML = 
+                `你给自己打了 ${score} 分<br><strong>${resultText}</strong>`;
+        }
+        
+        // 允许按回车键提交
+        document.getElementById('scoreInput').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                submitScore();
+            }
+        });
+    </script>
+</body>
+</html>
